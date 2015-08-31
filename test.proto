@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+message person {
+  message location {
+    optional string city = 0;
+    optional string state = 1;
+  }
+
+  required string name = 0;
+  required int32 age = 1;
+  required int32 income = 2;
+  optional string universe = 3;
+  optional boolean living = 4;
+  repeated string alterEgos = 5;
+}

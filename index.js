@@ -1,3 +1,4 @@
+var protobuf = require('protocol-buffers-schema')
 var mappings = {
   'array': 'repeated',
   'object': 'message',
@@ -8,7 +9,7 @@ var mappings = {
 }
 
 module.exports = function (schema) {
-  var protobuf = {
+  var result = {
     syntax: 2,
     package: null,
     enums: [],
@@ -16,9 +17,9 @@ module.exports = function (schema) {
   }
 
   if (schema.type === 'object') {
-    protobuf.messages.push(Message(schema))
+    result.messages.push(Message(schema))
   }
-  return protobuf
+  return protobuf.stringify(result)
 }
 
 function Message (schema) {
@@ -42,8 +43,12 @@ function Message (schema) {
     }
   }
 
-  for (var field in schema.required) {
-    message.fields[message.fields.indexOf(field)].required = true
+  for (var i in schema.required) {
+    var required = schema.required[i]
+    for (var i in message.fields) {
+      var field = message.fields[i]
+      if (required === field.name) field.required = true
+    }
   }
 
   return message
@@ -51,9 +56,12 @@ function Message (schema) {
 
 function Field (field, tag) {
   var type = mappings[field.type] || field.type
+  var repeated = false
 
-  var repeated = type === 'array'
-  if (repeated) type = field.items.type
+  if (field.type === 'array') {
+    repeated = true
+    type = field.items.type
+  }
 
   return {
     name: field.name,
