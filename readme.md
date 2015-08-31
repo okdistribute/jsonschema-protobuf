@@ -32,7 +32,7 @@ test.jsonschema
 
 ```js
 var convert = require('jsonschema-protobuf')
-var jsonschema = fs.readFileSync("test.jsonschema")
+var jsonschema = fs.readFileSync("test.jsonschema").toString()
 var protobuf = convert(jsonschema)
 console.log(protobuf)
 ```
