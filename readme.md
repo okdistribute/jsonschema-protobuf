@@ -55,3 +55,7 @@ message person {
   repeated string alterEgos = 5;
 }
 ```
+
+## TODO
+
+* Enum
