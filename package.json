@@ -1,0 +1,19 @@
+{
+  "name": "jsonschema-protobuf",
+  "version": "1.0.0",
+  "description": "json-schema.org to protobuf object",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karissa/jsonschema-protobuf.git"
+  },
+  "author": "Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/karissa/jsonschema-protobuf/issues"
+  },
+  "homepage": "https://github.com/karissa/jsonschema-protobuf"
+}
