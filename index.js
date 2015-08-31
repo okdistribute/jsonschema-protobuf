@@ -9,6 +9,7 @@ var mappings = {
 }
 
 module.exports = function (schema) {
+  if (typeof schema === 'string') schema = JSON.parse(schema)
   var result = {
     syntax: 2,
     package: null,
