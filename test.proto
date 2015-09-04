@@ -2,14 +2,14 @@ syntax = "proto2";
 
 message person {
   message location {
-    optional string city = 0;
-    optional string state = 1;
+    optional string city = 1;
+    optional string state = 2;
   }
 
-  required string name = 0;
-  required int32 age = 1;
-  required int32 income = 2;
-  optional string universe = 3;
-  optional boolean living = 4;
-  repeated string alterEgos = 5;
+  required string name = 1;
+  required int32 age = 2;
+  required int32 income = 3;
+  optional string universe = 4;
+  optional boolean living = 5;
+  repeated string alterEgos = 6;
 }
