@@ -5,7 +5,7 @@ var mappings = {
   'integer': 'int32',
   'number': 'int32',
   'string': 'string',
-  'boolean': 'boolean'
+  'boolean': 'bool'
 }
 
 module.exports = function (schema) {
@@ -31,7 +31,7 @@ function Message (schema) {
     fields: []
   }
 
-  var tag = 0
+  var tag = 1
   for (var key in schema.properties) {
     var field = schema.properties[key]
     if (field.type === 'object') {
