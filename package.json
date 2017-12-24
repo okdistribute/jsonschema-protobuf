@@ -1,10 +1,10 @@
 {
   "name": "jsonschema-protobuf",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "json-schema.org to protobuf object converter",
   "main": "index.js",
   "bin": {
-    "jsonschema-protobuf": "cli.js"  
+    "jsonschema-protobuf": "cli.js"
   },
   "scripts": {
     "test": "node test.js"
