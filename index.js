@@ -39,7 +39,7 @@ function Message (schema) {
       message.messages.push(Message(field))
     } else {
       field.name = key
-      message.fields.push(Field(field, tag))
+      message.fields.push(Field(field, tag, message))
       tag += 1
     }
   }
@@ -55,13 +55,20 @@ function Message (schema) {
   return message
 }
 
-function Field (field, tag) {
+function Field(field, tag, message) {
   var type = mappings[field.type] || field.type
   var repeated = false
 
   if (field.type === 'array') {
     repeated = true
-    type = field.items.type
+    if (field.items.type === 'object') {
+      field.items.name = field.name;
+      message.messages.push(Message(field.items))
+      type = field.name
+    } else {
+      type = field.items.type
+    }
+
   }
 
   return {
