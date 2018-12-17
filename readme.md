@@ -60,7 +60,3 @@ var jsonschema = fs.readFileSync("test.jsonschema").toString()
 var protobuf = convert(jsonschema)
 console.log(protobuf)
 ```
-
-## TODO
-
-* Enum
