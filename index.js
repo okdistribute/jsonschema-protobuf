@@ -8,14 +8,16 @@ var mappings = {
   'boolean': 'bool'
 }
 
+var protoBufRoot = {
+  syntax: 2,
+  package: null,
+  enums: [],
+  messages: []
+}
+
 module.exports = function (schema) {
   if (typeof schema === 'string') schema = JSON.parse(schema)
-  var result = {
-    syntax: 2,
-    package: null,
-    enums: [],
-    messages: []
-  }
+  result = protoBufRoot;
 
   if (schema.type === 'object') {
     result.messages.push(Message(schema))
@@ -63,13 +65,16 @@ function Field(field, tag, message) {
     repeated = true
     if (field.items.type === 'object') {
       field.items.name = field.name;
-      message.messages.push(Message(field.items))
+      protoBufRoot.messages.push(Message(field.items))
       type = field.name
     } else {
       type = field.items.type
-    }
-
+    }    
+  }else if(field.type === 'string' && field.enum){
+    type = field.name + "Enum";
+    message.enums.push(Enum(field))
   }
+
 
   return {
     name: field.name,
@@ -77,4 +82,20 @@ function Field(field, tag, message) {
     tag: tag,
     repeated: repeated
   }
+}
+
+function Enum(field){
+//  var options = {"option1" : 0, "option2" : 1};
+   var protoEnum = {
+    name: field.name + "Enum",
+    options: [],
+    values: []
+  }
+
+for (var e in field.enum) {
+    var enumValue = {  value : e, options : []}
+    var enumName = field.enum[e].replace(new RegExp('[.]', 'g'), '_')
+    protoEnum.values[enumName] = enumValue;
+  };
+  return protoEnum;
 }
