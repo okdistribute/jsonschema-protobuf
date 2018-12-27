@@ -1,7 +1,7 @@
 var protobuf = require('protocol-buffers-schema')
 var mappings = {
   'array': 'repeated',
-  'object': 'message',
+//  'object': 'message',
   'integer': 'int32',
   'number': 'int32',
   'string': 'string',
@@ -36,14 +36,16 @@ function Message (schema) {
   var tag = 1
   for (var key in schema.properties) {
     var field = schema.properties[key]
+    field.name = key
     if (field.type === 'object') {
-      field.name = key
-      message.messages.push(Message(field))
-    } else {
-      field.name = key
+      field.type = field.name + 'Type';
       message.fields.push(Field(field, tag, message))
-      tag += 1
+      field.name = field.type;
+      message.messages.push(Message(field))
+    }else{
+      message.fields.push(Field(field, tag, message))
     }
+    tag += 1
   }
 
   for (var i in schema.required) {
