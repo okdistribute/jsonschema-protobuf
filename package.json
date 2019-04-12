@@ -21,6 +21,7 @@
   "homepage": "https://github.com/karissa/jsonschema-protobuf",
   "dependencies": {
     "protocol-buffers-schema": "^2.0.3",
-    "tape": "^4.2.0"
+    "tape": "^4.2.0",
+    "json-schema-deref": "^0.5.0"
   }
 }
