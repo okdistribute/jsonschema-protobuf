@@ -60,3 +60,7 @@ var jsonschema = fs.readFileSync("test.jsonschema").toString()
 var protobuf = convert(jsonschema)
 console.log(protobuf)
 ```
+
+## Support for directory conversion
+The following command will read all schemas from one dir and write it to a second dir
+```node start-conversion-all <schema-dir-in> <proto-dir-out>```

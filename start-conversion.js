@@ -5,9 +5,11 @@ var convert = require('./')
 var args = process.argv.slice(2);
 var inFile = args[0];
 var outFile = args[1];
-let schema = require(inFile);
 
-deref(schema, function(err, exandedSchema) {
+var schemaString = fs.readFileSync(inFile);
+var schemaFromFile = JSON.parse(schemaString);
+
+deref(schemaFromFile, function(err, exandedSchema) {
     var jsonString = JSON.stringify(exandedSchema, null, 2);
 //    process.stdout.write(jsonString);
 	var protobuf = convert(jsonString);

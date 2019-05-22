@@ -13,9 +13,15 @@ var protoBufRoot = {
   package: null,
   enums: [],
   messages: []
-}
+};
 
 module.exports = function (schema) {
+  protoBufRoot = {
+    syntax: 2,
+    package: null,
+    enums: [],
+    messages: []
+  };
   if (typeof schema === 'string') schema = JSON.parse(schema)
   result = protoBufRoot;
 
