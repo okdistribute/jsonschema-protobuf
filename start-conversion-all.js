@@ -5,23 +5,25 @@ var convert = require("./");
 var args = process.argv.slice(2);
 var inDir = args[0];
 var outDir = args[1];
-start();
+startLocal(inDir, outDir);
 
-function start(){
-    var schemaFiles = fs.readdirSync(inDir);
-    schemaFiles.forEach(async schemaFile => {
-      var schemaString = fs.readFileSync(inDir + "/" + schemaFile);
-      var schemaFromFile = JSON.parse(schemaString);
-      var outFileNameBase = schemaFile.split(".").shift();
-      var outFile = outDir + "/" + outFileNameBase + ".proto";
-      var expandedSchema = await derefSchema(schemaFromFile);
-      var jsonString = JSON.stringify(expandedSchema, null, 2);
-      protobuf = convert(jsonString);
-      fs.writeFileSync(outFile, protobuf);
-      console.log("Generated " + outFile);
-    });
+module.exports = function start(inDir, outDir) {
+  startLocal(inDir, outDir);
+};
+function startLocal(inDir, outDir) {
+  var schemaFiles = fs.readdirSync(inDir);
+  schemaFiles.forEach(async schemaFile => {
+    var schemaString = fs.readFileSync(inDir + "/" + schemaFile);
+    var schemaFromFile = JSON.parse(schemaString);
+    var outFileNameBase = schemaFile.split(".").shift();
+    var outFile = outDir + "/" + outFileNameBase + ".proto";
+    var expandedSchema = await derefSchema(schemaFromFile);
+    var jsonString = JSON.stringify(expandedSchema, null, 2);
+    protobuf = convert(jsonString);
+    fs.writeFileSync(outFile, protobuf);
+    console.log("Generated " + outFile);
+  });
 }
-
 
 function derefSchema(schemaFromFile) {
   return new Promise(async resolve => {
