@@ -13,6 +13,9 @@ module.exports = function start(inDir, outDir) {
 function startLocal(inDir, outDir) {
   var schemaFiles = fs.readdirSync(inDir);
   schemaFiles.forEach(async schemaFile => {
+    if(schemaFile.split('.').pop() !== "json"){
+      return;
+    }
     var schemaString = fs.readFileSync(inDir + "/" + schemaFile);
     var schemaFromFile = JSON.parse(schemaString);
     var outFileNameBase = schemaFile.split(".").shift();
