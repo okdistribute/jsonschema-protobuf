@@ -20,16 +20,21 @@ function startLocal(inDir, outDir) {
     var schemaFromFile = JSON.parse(schemaString);
     var outFileNameBase = schemaFile.split(".").shift();
     var outFile = outDir + "/" + outFileNameBase + ".proto";
-    var expandedSchema = await derefSchema(schemaFromFile);
-    var jsonString = JSON.stringify(expandedSchema, null, 2);
-    protobuf = convert(jsonString);
-    fs.writeFileSync(outFile, protobuf);
-    console.log("Generated " + outFile);
+    try {
+      var expandedSchema = await derefSchema(schemaFromFile);
+      var jsonString = JSON.stringify(expandedSchema, null, 2);
+      protobuf = convert(jsonString);
+      fs.writeFileSync(outFile, protobuf);
+      console.log("Generated " + outFile);      
+    } catch (error) {
+      console.error("Problem generating " + outFile);      
+      process.exit(1);
+    }
   });
 }
 
 function derefSchema(schemaFromFile) {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve, reject) => {
     deref(schemaFromFile, (err, expandedSchema) => {
       if (err) {
         console.error(
@@ -38,7 +43,7 @@ function derefSchema(schemaFromFile) {
             ". " +
             err.message
         );
-        process.exit(1);
+        reject();
       }
       resolve(expandedSchema);
     });
