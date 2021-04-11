@@ -1,6 +1,6 @@
 {
   "name": "jsonschema-protobuf",
-  "version": "1.0.2",
+  "version": "1.0.2-fork",
   "description": "json-schema.org to protobuf object converter",
   "main": "index.js",
   "bin": {
@@ -11,16 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/karissa/jsonschema-protobuf.git"
+    "url": "https://github.com/ArthurvdKnaap/jsonschema-protobuf.git"
   },
-  "author": "Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
+  "author": "Arthur van der Knaap, Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
   "license": "BSD",
-  "bugs": {
-    "url": "https://github.com/karissa/jsonschema-protobuf/issues"
-  },
-  "homepage": "https://github.com/karissa/jsonschema-protobuf",
   "dependencies": {
-    "protocol-buffers-schema": "^2.0.3",
-    "tape": "^4.2.0"
+    "protocol-buffers-schema": "3.3.2",
+    "tape": "4.2.0",
+    "json-schema-deref": "0.5.0"
   }
 }
